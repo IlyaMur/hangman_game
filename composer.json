@@ -11,5 +11,7 @@
         "name": "Ilya Mur",
         "email": "ilyamur@hotmail.com"
     }],
-    "require": {}
+    "require": {
+        "jfcherng/php-color-output": "^3.0"
+    }
 }

@@ -16,22 +16,6 @@ class Game
         $this->letters = mb_str_split($gameDb->getWord());
     }
 
-    public function getErrors(): array
-    {
-        return array_diff($this->userGuesses, $this->letters);
-    }
-
-    public function errorsMade(): int
-    {
-        return count($this->getErrors());
-    }
-
-    public function errorsAllowed(): int
-    {
-        return static::TOTAL_ERRORS_ALLOWED - $this->errorsMade();
-    }
-
-
     private function normalizedLetter(string $letter): string
     {
         if ($letter === 'Ë') {
@@ -46,6 +30,21 @@ class Game
     private function normalizedLetters(array $letters): array
     {
         return array_map(fn ($letter) => $this->normalizedLetter($letter), $letters);
+    }
+
+    public function getErrors(): array
+    {
+        return array_diff($this->userGuesses, $this->normalizedLetters($this->letters));
+    }
+
+    public function errorsMade(): int
+    {
+        return count($this->getErrors());
+    }
+
+    public function errorsAllowed(): int
+    {
+        return static::TOTAL_ERRORS_ALLOWED - $this->errorsMade();
     }
 
     public function lettersToGuess(): array

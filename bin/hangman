@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$gameDb = new Ilyamur\HangmanGame\GameDBProvider();
+
+$game = new Ilyamur\HangmanGame\Game($gameDb);
+
+$consoleInterface = new Ilyamur\HangmanGame\ConsoleInterface($game, $gameDb);
+
+$consoleInterface->greetings();
+
+while (true) {
+    $consoleInterface->printOut();
+
+    $letter = $consoleInterface->getInput();
+
+    // $game->play($letter);
+}
+
+
+$consoleInterface->printOut();

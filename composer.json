@@ -1,0 +1,15 @@
+{
+    "name": "ilyamur/hangman-game",
+    "description": "CLI version of popular table game",
+    "autoload": {
+        "psr-4": {
+            "Ilyamur\\HangmanGame\\": "src/"
+        }
+    },
+    "bin": ["bin/hangman"],
+    "authors": [{
+        "name": "Ilya Mur",
+        "email": "ilyamur@hotmail.com"
+    }],
+    "require": {}
+}

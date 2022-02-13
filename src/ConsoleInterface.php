@@ -15,55 +15,45 @@ class ConsoleInterface
     public function getInput()
     {
         echo 'Введите следующую букву:';
+        $input = rtrim(fgets(STDIN));
 
-        return ucfirst(fgets(STDIN));
+        return mb_strtoupper(mb_substr($input, 0, 1)) . mb_substr($input, 1);
     }
 
     public function greetings()
     {
-        echo 'Всем привет!';
-        echo 'Начинаем игру Виселица!';
+        echo "Всем привет!\n";
+        echo "Начинаем игру Виселица!\n";
     }
 
     public function getCurrentFigure()
     {
         return $this
             ->gameDb
-            ->getFigure($this->game->errorsMade);
+            ->getFigure($this->game->errorsMade() + 1);
     }
 
     public function printOut()
     {
         echo <<<END
-            Слово: {$this->getWordToShow()}
-            {$this->getCurrentFigure()}
-            Ошибки {$this->game->errorsMade}: {$this->getErrorsToShow()}
+        Слово: {$this->getWordToShow()}
+        {$this->getCurrentFigure()}
+        Ошибки {$this->game->errorsMade()}: {$this->getErrorsToShow()} 
+        
         END;
 
         if ($this->game->isWon()) {
             echo 'Поздравляем, вы выиграли!';
         } elseif ($this->game->isLost()) {
-            echo "Вы проиграли, загаданное слово: " . $this->game->word;
+            echo "Вы проиграли, загаданное слово: " . $this->game->word() . "\n";
         }
     }
 
     private function getWordToShow()
     {
-        //     result =
-        //       @game.letters_to_guess.map do |letter|
-        //         if letter == nil
-        //           "__"
-        //         else
-        //           letter
-        //         end
-        //       end
-
-        //     result.join(" ")
-        //   end
-
         $result = array_map(
-            fn ($letter) => is_null($letter) ? '__' : $letter,
-            $this->game->lettersToGuess
+            fn ($letter) => is_null($letter) ? '_' : $letter,
+            $this->game->lettersToGuess()
         );
 
         return implode('', $result);
@@ -71,6 +61,6 @@ class ConsoleInterface
 
     public function getErrorsToShow()
     {
-        return implode('', $this->game->errors);
+        return implode(' ', $this->game->getErrors());
     }
 }

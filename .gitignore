@@ -1,3 +1,5 @@
 /vendor
 /build
-.code-coverage
+/.code-coverage
+.phpunit.cache
+.phpunit.result.cache

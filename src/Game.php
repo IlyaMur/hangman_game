@@ -8,18 +8,18 @@ class Game
 {
     private const TOTAL_ERRORS_ALLOWED = 6;
 
-    private array $letters;
-    private array $userGuesses = [];
+    public array $letters;
+    public array $userGuesses = [];
 
     public function __construct(GameDBProvider $gameDb)
     {
         $this->letters = mb_str_split($gameDb->getWord());
     }
 
-    private function normalizedLetter(string $letter): string
+    public function normalizedLetter(string $letter): string
     {
         if ($letter === 'Ë') {
-            return 'E';
+            return 'Е';
         } elseif ($letter === 'Й') {
             return 'И';
         }
@@ -27,7 +27,7 @@ class Game
         return $letter;
     }
 
-    private function normalizedLetters(array $letters): array
+    public function normalizedLetters(array $letters): array
     {
         return array_map(fn ($letter) => $this->normalizedLetter($letter), $letters);
     }
@@ -85,7 +85,7 @@ class Game
         ));
     }
 
-    public function word(): string
+    public function getGuessedWord(): string
     {
         return implode('', $this->letters);
     }

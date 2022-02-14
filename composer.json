@@ -6,6 +6,11 @@
             "Ilyamur\\HangmanGame\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Ilyamur\\HangmanGame\\Tests\\": "tests/"
+        }
+    },
     "bin": ["bin/hangman"],
     "authors": [{
         "name": "Ilya Mur",
@@ -13,5 +18,8 @@
     }],
     "require": {
         "jfcherng/php-color-output": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
     }
 }

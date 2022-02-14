@@ -9,8 +9,8 @@ use \Jfcherng\Utility\CliColor;
 class ConsoleInterface
 {
     public function __construct(
-        private Game $game,
-        private GameDBProvider $gameDb
+        public Game $game,
+        public GameDBProvider $gameDb
     ) {
     }
 
@@ -53,15 +53,20 @@ class ConsoleInterface
         
         END;
 
+        $this->printFinalMessage();
+    }
+
+    public function printFinalMessage()
+    {
         if ($this->game->isWon()) {
             echo CliColor::color('Поздравляем, вы выиграли!', ['f_white', 'b_green', 'b', 'blk']);
             echo PHP_EOL;
         } elseif ($this->game->isLost()) {
-            echo "Вы проиграли, загаданное слово: " . $this->game->word() . "\n";
+            echo "Вы проиграли, загаданное слово: " . $this->game->getGuessedWord() . "\n";
         }
     }
 
-    private function getWordToShow(): string
+    public function getWordToShow(): string
     {
         $result = array_map(
             fn ($letter) => is_null($letter) ? '_' : $letter,

@@ -8,9 +8,11 @@ use PDO;
 
 class GameDBProvider
 {
-    public function __construct(
-        private PDO $db = new PDO("sqlite:" . __DIR__ . "/../database/hangman.db")
-    ) {
+    private PDO $db;
+
+    public function __construct(string $dsn)
+    {
+        $this->db = new PDO($dsn);
     }
 
     public function getWord(): string

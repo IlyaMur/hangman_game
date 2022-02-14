@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$gameDb = new Ilyamur\HangmanGame\GameDBProvider();
+$gameDb = new Ilyamur\HangmanGame\GameDBProvider(DB_DSN);
 $game = new Ilyamur\HangmanGame\Game($gameDb);
 $consoleInterface = new Ilyamur\HangmanGame\ConsoleInterface($game, $gameDb);
 

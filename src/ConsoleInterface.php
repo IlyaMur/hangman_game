@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ilyamur\HangmanGame;
 
-use \Jfcherng\Utility\CliColor;
+use Jfcherng\Utility\CliColor;
 
 class ConsoleInterface
 {

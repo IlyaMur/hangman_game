@@ -1,0 +1,19 @@
+name: PHPUnit-Tests
+
+on: push
+
+jobs:
+  run-linttest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Install
+        run: make install
+      - name: Env
+        run: make env-prepare
+      - name: run-linter
+        run: make test

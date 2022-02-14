@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ilyamur\HangmanGame\Tests\Unit\Controllers;
+namespace Ilyamur\HangmanGame\Tests\Unit;
 
 use Ilyamur\HangmanGame\Game;
 use PHPUnit\Framework\TestCase;

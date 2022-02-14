@@ -10,12 +10,11 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.0'
       - name: Install
         run: make install
-      - name: run-linter
-      - run: make test
-              uses: paambaati/codeclimate-action@v2.6.0
+      - name: run-tests
+        uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:

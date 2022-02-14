@@ -5,12 +5,21 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+/**
+ * Hangman Game
+ *
+ * @author Ilya Muratov ilyamur@hotmail.com
+ * 
+ * PHP version 8.1
+ */
+
 $gameDb = new Ilyamur\HangmanGame\GameDBProvider(DB_DSN);
 $game = new Ilyamur\HangmanGame\Game($gameDb);
 $consoleInterface = new Ilyamur\HangmanGame\ConsoleInterface($game, $gameDb);
 
 $consoleInterface->greetings();
 
+// Main game loop
 while (!$game->isOver()) {
     $consoleInterface->printOut();
 

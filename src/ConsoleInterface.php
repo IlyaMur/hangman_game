@@ -81,7 +81,7 @@ class ConsoleInterface
     public function greetings(): void
     {
         echo CliColor::color("Добро пожаловать на игру Виселица, ", 'f_light_cyan');
-        echo CliColor::color("{$this->game->playerName}!", 'f_yellow') . PHP_EOL;
+        echo $this->game->playerName . PHP_EOL;
         echo CliColor::color("Автор: Ilya Muratov (github.com/ilyamur)", 'f_light_cyan') . PHP_EOL;
     }
 

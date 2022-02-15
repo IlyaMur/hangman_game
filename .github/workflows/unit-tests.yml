@@ -13,5 +13,5 @@ jobs:
           php-version: '8.1'
       - name: Install
         run: make install
-      - name: run-tests
-      - run: make test
+      - name: run-linter
+        run: make test

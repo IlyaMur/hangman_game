@@ -7,4 +7,4 @@
 [![asciicast](https://asciinema.org/a/5ApbdL6O3V3LUuR8qrlZ1J1Xp.svg)](https://asciinema.org/a/5ApbdL6O3V3LUuR8qrlZ1J1Xp)
 
 Вывод таблицы результатов:  
-[![asciicast](https://asciinema.org/a/hS8TB6jnYAON3DPFQnVcQMYRX.svg)](https://asciinema.org/a/hS8TB6jnYAON3DPFQnVcQMYRX)
+[![asciicast](https://asciinema.org/a/FZpvlkH6mwJQ1W8Nc4TLuM7Yf.svg)](https://asciinema.org/a/FZpvlkH6mwJQ1W8Nc4TLuM7Yf)

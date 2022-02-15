@@ -122,7 +122,7 @@ class Game
      * Play the letter
      * Add to guesses array
      *
-     * @param array $letter array of letters
+     * @param string $letter array of letters
      *
      * @return void
      */

@@ -41,7 +41,7 @@ class ConsoleInterface
 
     public function askName(): void
     {
-        echo PHP_EOL;
+        echo "\e[H\e[J";
         echo CliColor::color('Представьтесь, пожалуйста', 'f_light_cyan');
         echo CliColor::color(' (enter для пропуска).', 'f_light_cyan') . PHP_EOL;
         echo CliColor::color('Ваш ник: ', 'f_light_cyan');
@@ -68,6 +68,7 @@ class ConsoleInterface
     {
         echo 'Введите следующую букву: ';
         $input = rtrim(fgets(STDIN));
+        echo "\e[H\e[J";
 
         return mb_strtoupper(mb_substr($input, 0, 1));
     }

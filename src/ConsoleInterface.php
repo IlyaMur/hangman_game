@@ -180,7 +180,7 @@ class ConsoleInterface
         $table = new Table($output);
 
         $table
-            ->setHeaders(['Имя', 'Игра всего', 'Выиграно', 'Проиграно', 'Процент побед'])
+            ->setHeaders(['Имя', 'Игр всего', 'Выиграно', 'Проиграно', 'Процент побед'])
             ->setRows($playersData);
         $table->render();
 

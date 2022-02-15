@@ -3,7 +3,10 @@
 
 declare(strict_types=1);
 
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 /**
  * Hangman Game
@@ -17,6 +20,8 @@ $gameDb = new Ilyamur\HangmanGame\GameDBProvider(DB_DSN);
 $game = new Ilyamur\HangmanGame\Game($gameDb);
 $consoleInterface = new Ilyamur\HangmanGame\ConsoleInterface($game, $gameDb);
 
+$consoleInterface->parseArgs($argv);
+$consoleInterface->askName();
 $consoleInterface->greetings();
 
 // Main game loop
@@ -28,4 +33,5 @@ while (!$game->isOver()) {
     $game->play($letter);
 }
 
+$game->setScore();
 $consoleInterface->printOut();

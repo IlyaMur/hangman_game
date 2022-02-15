@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Ilyamur\HangmanGame;
 
 use Jfcherng\Utility\CliColor;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\StreamOutput;
 
 /**
  * ConsoleInterface
@@ -32,6 +34,30 @@ class ConsoleInterface
     }
 
     /**
+     * Get User name from the CLI
+     *
+     * @return string
+     */
+
+    public function askName(): void
+    {
+        echo PHP_EOL;
+        echo CliColor::color('Представьтесь, пожалуйста', 'f_light_cyan');
+        echo CliColor::color(' (enter для пропуска).', 'f_light_cyan') . PHP_EOL;
+        echo CliColor::color('Ваш ник: ', 'f_light_cyan');
+
+        $name = rtrim(fgets(STDIN));
+        echo PHP_EOL;
+
+        if ($name === '') {
+            $name = 'anonym';
+        }
+
+        $this->gameDb->recordName($name);
+        $this->game->playerName = $name;
+    }
+
+    /**
      * Get User input from the CLI
      * Uppercase first letter and send it to the game
      *
@@ -40,7 +66,7 @@ class ConsoleInterface
 
     public function getInput(): string
     {
-        echo 'Введите следующую букву:';
+        echo 'Введите следующую букву: ';
         $input = rtrim(fgets(STDIN));
 
         return mb_strtoupper(mb_substr($input, 0, 1));
@@ -54,12 +80,9 @@ class ConsoleInterface
 
     public function greetings(): void
     {
-        echo CliColor::color("Всем привет!", 'f_light_cyan, b_yellow');
-        echo PHP_EOL;
-        echo CliColor::color("Начинаем игру Виселица!", 'f_light_cyan');
-        echo PHP_EOL;
-        echo CliColor::color("Автор: Ilya Muratov (github.com/ilyamur)", 'f_light_cyan');
-        echo PHP_EOL;
+        echo CliColor::color("Добро пожаловать на игру Виселица, ", 'f_light_cyan');
+        echo CliColor::color("{$this->game->playerName}!", 'f_yellow') . PHP_EOL;
+        echo CliColor::color("Автор: Ilya Muratov (github.com/ilyamur)", 'f_light_cyan') . PHP_EOL;
     }
 
     /**
@@ -141,5 +164,59 @@ class ConsoleInterface
     public function getErrorsToShow(): string
     {
         return implode(' ', $this->game->getErrors());
+    }
+
+    /**
+     * Print records table
+     *
+     * @param int $num number of records
+     *
+     * @return string
+     */
+
+    public function printTableOfPlayers(array $playersData): void
+    {
+        $output = new StreamOutput(fopen('php://stdout', 'w'));
+        $table = new Table($output);
+
+        $table
+            ->setHeaders(['Имя', 'Игра всего', 'Выиграно', 'Проиграно', 'Процент побед'])
+            ->setRows($playersData);
+        $table->render();
+
+        exit;
+    }
+
+    /**
+     * Parse CLI args
+     *
+     * @param array $args CLI arguments
+     *
+     * @return string
+     */
+
+    public function parseArgs(array $args)
+    {
+        if (!isset($args[1])) {
+            return;
+        }
+
+        $argsData = explode(':', $args[1]);
+
+        if (
+            $argsData[0] === 'top' &&
+            filter_var($argsData[1], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 10]])
+        ) {
+            $playersData = $this->gameDb->getTopPlayers((int) $argsData[1]);
+
+            $this->printTableOfPlayers($playersData);
+        }
+
+        if ($argsData[0] === 'name' && !empty($argsData[1])) {
+            $playerData = $this->gameDb->getPlayerByName($argsData[1]);
+            $playerData = $playerData ?: [];
+
+            $this->printTableOfPlayers([$playerData]);
+        }
     }
 }

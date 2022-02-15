@@ -18,6 +18,8 @@ class Game
     private const TOTAL_ERRORS_ALLOWED = 6;
 
     public array $letters;
+    public string $playerName;
+    public GameDBProvider $gameDb;
     public array $userGuesses = [];
 
     /**
@@ -30,6 +32,7 @@ class Game
 
     public function __construct(GameDBProvider $gameDb)
     {
+        $this->gameDb = $gameDb;
         $this->letters = mb_str_split($gameDb->getWord());
     }
 
@@ -178,5 +181,18 @@ class Game
     public function getGuessedWord(): string
     {
         return implode('', $this->letters);
+    }
+
+    /**
+     * Set game score to players records
+     *
+     * @return void
+     */
+
+    public function setScore(): void
+    {
+        $this->isWon() ?
+            $this->gameDb->recordResult($this->playerName, true) :
+            $this->gameDb->recordResult($this->playerName);
     }
 }

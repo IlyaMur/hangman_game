@@ -1,6 +1,9 @@
 install:
 	composer install
 
+start:
+	./bin/hangman
+
 test:
 	composer exec phpunit tests
 

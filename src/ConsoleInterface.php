@@ -116,6 +116,7 @@ class ConsoleInterface
         {$this->getCurrentFigure()}
         
         $errors {$this->game->errorsMade()}: {$this->getErrorsToShow()}
+        У вас осталось ошибок: {$this->game->errorsAllowed()}
         
         END;
 

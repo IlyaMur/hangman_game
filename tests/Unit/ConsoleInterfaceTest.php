@@ -63,9 +63,10 @@ class ConsoleInterfaceTest extends TestCase
         $gameMock = $this
             ->getMockBuilder(Game::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['isWon'])
+            ->onlyMethods(['isWon', 'errorsAllowed'])
             ->getMock();
         $gameMock->method('isWon')->willReturn(true);
+        $gameMock->method('errorsAllowed')->willReturn(6);
         $gameMock->letters = [];
 
         $consoleMock = $this
@@ -92,6 +93,7 @@ class ConsoleInterfaceTest extends TestCase
         $figure
         
         $errors 0: 
+        У вас осталось ошибок: {$consoleMock->game->errorsAllowed()}
         $finalMessage
         
         END;
